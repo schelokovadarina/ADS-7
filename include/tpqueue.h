@@ -1,10 +1,9 @@
 // Copyright 2022 NNTU-CS
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
-
+#include <string>
 template<typename T>
 class TPQueue {
-
 struct ITEM {
 T data;
 ITEM* next;
@@ -26,11 +25,11 @@ TPQueue() : head(nullptr), tail(nullptr) {}
 while (head)
 pop();
 }
-template < typename T>
-T TPQueue <T>::pop() {
+
+T pop() {
 if (head) {
-ITEM* temp = head−> next;
-T data = head−> data;
+ITEM* temp = head->next;
+T data = head->data;
 delete head;
 head = temp;
 return data;
@@ -38,8 +37,8 @@ return data;
 throw std::string(" Empty ! ");
 }
 }
-template<typename T>
-void TPQueue<T>::push(const T& data) {
+
+void push(const T& data) {
 ITEM* temp = head;
 ITEM* item = create(data);
 while (temp && temp->data.prior >= data.prior)
@@ -66,8 +65,8 @@ temp->prev = item;
 };
 
 struct SYM {
-	char ch;
-	int prior;
+char ch;
+int prior;
 };
 
 #endif  // INCLUDE_TPQUEUE_H_
