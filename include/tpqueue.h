@@ -4,12 +4,76 @@
 
 template<typename T>
 class TPQueue {
-  // реализация шаблона очереди с приоритетом на связанном списке
+struct ITEM {
+  T data;
+  ITEM* next;
+  ITEM* prev;
+};
+ ITEM* head;
+ ITEM* tail;
+ TPQueue::ITEM* create(const T & data) {
+   ITEM* item = new ITEM;
+   item->data = data;
+   item->next = nullptr;
+   item->prev = nullptr;
+     return item;
+}
+         
+public:
+template < typename T >
+ TPQueue <T >::TPQueue() {
+   head=tail=nullptr; 
+ }
+template < typename T >
+ TPQueue <T >:: ~TPQueue() {
+   while (head)
+     pop();
+}
+template < typename T >
+ T TPQueue <T >::pop() {
+  if (head) {
+  ITEM* temp = head− > next;
+  T data = head− > data;
+   delete head;
+    head = temp;
+     return data;
+     } else {
+     throw std::string(" Empty ! ");
+}
+}
+template<typename T>
+ void TPQueue<T>::push(const T& data) {
+   ITEM* temp = head;
+  ITEM* item = create(data);
+  while (temp && temp->data.prior >= data.prior)
+  temp = temp->next;
+ if (!temp && head) {
+  tail->next = item;
+  tail->next->prev = tail;
+  tail = item;
+ }
+  else if (!temp && !head) {
+    head = tail = item;
+}
+  else if (!temp->prev) {
+   temp->prev = item;
+   item->next = temp;
+   head = item;
+  }
+   else {
+    temp->prev->next = item;
+     item->prev = temp->prev;
+      item->next = temp;
+      temp->prev = item;
+}
+}
+
+   
 };
 
 struct SYM {
-  char ch;
-  int prior;
+	char ch;
+	int prior;
 };
 
 #endif  // INCLUDE_TPQUEUE_H_
